@@ -1,5 +1,6 @@
-import FileUtils.FileIterator;
+import fileUtils.FileIterator;
 
+import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
             while (fi.hasNext()) {
                 System.out.println(fi.next());
             }
-        } catch (NoSuchElementException ex) {
+        } catch (NoSuchElementException | FileNotFoundException ex) {
             ex.printStackTrace();
         }
     }

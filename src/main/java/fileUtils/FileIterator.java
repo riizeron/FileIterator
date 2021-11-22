@@ -1,19 +1,20 @@
-package FileUtils;
+package fileUtils;
 
 import java.io.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+
 public class FileIterator implements Iterator<String>, AutoCloseable {
 
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
-    public FileIterator(String path) {
+    public FileIterator(String path) throws FileNotFoundException {
         try {
             reader = new BufferedReader(new FileReader(path));
         } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-            System.exit(1);
+            ex.printStackTrace();
+            throw ex;
         }
     }
 
@@ -22,8 +23,7 @@ public class FileIterator implements Iterator<String>, AutoCloseable {
         try {
             return reader.ready();
         } catch (IOException e) {
-            close();
-            return false;
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -32,7 +32,6 @@ public class FileIterator implements Iterator<String>, AutoCloseable {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-
         try {
             return reader.readLine();
         } catch (IOException e) {
