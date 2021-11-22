@@ -10,12 +10,7 @@ public class FileIterator implements Iterator<String>, AutoCloseable {
     private final BufferedReader reader;
 
     public FileIterator(String path) throws FileNotFoundException {
-        try {
-            reader = new BufferedReader(new FileReader(path));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
+        reader = new BufferedReader(new FileReader(path));
     }
 
     @Override
