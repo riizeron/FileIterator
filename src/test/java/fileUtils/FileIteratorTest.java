@@ -69,6 +69,7 @@ class FileIteratorTest {
         reader.close();
         assertThrows(UncheckedIOException.class, () -> reader.next());
     }
+
     @Test
     void checkMethodNextThatOutStringIsCorrect() throws FileNotFoundException {
         reader = new FileIterator(pathToNonEmptyFile);
@@ -77,7 +78,8 @@ class FileIteratorTest {
 
     @AfterEach
     void cleanResources() {
-        reader.close();
+        if (reader != null)
+            reader.close();
     }
 
 
